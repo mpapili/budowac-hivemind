@@ -9,9 +9,12 @@ func SurfaceHeight(wx, wz int, seed int64) int {
 }
 
 func hash2(x, z int, seed int64) float64 {
+	// Match JS >>> (logical shift) from client generator.ts — not Go >> .
 	n := int32(seed) ^ imul(int32(x), 374761393) ^ imul(int32(z), 668265263)
-	n = imul(n^(n>>13), 1274126177)
-	return float64(uint32(n^(n>>16))) / 4294967296.0
+	u := uint32(n)
+	n = imul(int32(u^(u>>13)), 1274126177)
+	u = uint32(n)
+	return float64(u^(u>>16)) / 4294967296.0
 }
 
 func imul(a, b int32) int32 { return int32(int64(a) * int64(b)) }

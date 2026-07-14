@@ -60,3 +60,13 @@ func TestSurfaceHeightRange(t *testing.T) {
 		t.Errorf("h=%d", h)
 	}
 }
+
+// Client generator.ts surfaceHeight(seed=42) samples — keep parity with budowac-server.
+func TestSurfaceHeightMatchesClient(t *testing.T) {
+	if got := SurfaceHeight(0, 0, 42); got != 14 {
+		t.Errorf("SurfaceHeight(0,0)=%d want 14", got)
+	}
+	if got := SurfaceHeight(10, 10, 42); got != 12 {
+		t.Errorf("SurfaceHeight(10,10)=%d want 12", got)
+	}
+}
